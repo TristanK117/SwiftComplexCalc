@@ -128,6 +128,8 @@ let calc = Calculator()
 //: Keep in mind that writing new tests may reveal ambiguity in the specification above--if that's the case, document the ambiguity, declare what you think *should* happen, and write the test to test for it.
 calc.multiply(lhs: -2, rhs: 2) == -4
 calc.count([1, 2, 3, 4, 5, 6, -7, 8]) == 8
+calc.add([]) == 0
+calc.avg([2, 2, 4, 4, 4, 2]) == 4 // 2 and 4 doesnt work
 //: ---
 //: ## Test code block
 //: Do not modify the code in this section
