@@ -57,23 +57,61 @@ class Calculator {
     }
     
     func multiply(_ list: [Int]) -> Int {
-        var sum = 0
+        var product = 1
         for i in list {
-            sum *= i
+            product *= i
         }
-        return sum
+        return product
     }
     
     func count(_ list: [Int]) -> Int {
-        return list.count
+        var counter = 0
+        for _ in list {
+            counter += 1
+        }
+        return counter
     }
     
     func avg(_ list: [Int]) -> Double {
-        return Double(add(list)) / Double(count(list))
+        let totalCount = count(list)
+        if totalCount == 0 {
+            return 0.0
+        }
+        return Double(add(list)) / Double(totalCount)
     }
     
     func mathOp(_ list: [Int], op: ([Int]) -> Int) -> Int {
         return op(list)
+    }
+    
+    func mathOp(args: [Int], beg: Int, op: (Int, Int) -> Int) -> Int {
+        var result = beg
+        for value in args {
+            result = op(result, value)
+        }
+        return result
+    }
+    
+    func add(lhs: (Int, Int), rhs: (Int, Int)) -> (Int, Int) {
+        return (lhs.0 + rhs.0, lhs.1 + rhs.1)
+    }
+    
+    func subtract(lhs: (Int, Int), rhs: (Int, Int)) -> (Int, Int) {
+        return (lhs.0 - rhs.0, lhs.1 - rhs.1)
+    }
+    
+    func add(lhs: [String: Int], rhs: [String: Int]) -> [String: Int] {
+        return [
+            "x": (lhs["x"] ?? 0) + (rhs["x"] ?? 0),
+            "y": (lhs["y"] ?? 0) + (rhs["y"] ?? 0),
+        ]
+    }
+    
+    func subtract(lhs: [String: Int], rhs: [String: Int]) -> [String: Int] {
+        return [
+            "x": (lhs["x"] ?? 0) - (rhs["x"] ?? 0),
+            "y": (lhs["y"] ?? 0) - (rhs["y"] ?? 0),
+        ]
     }
 }
 
@@ -88,9 +126,8 @@ let calc = Calculator()
 //: Suggestions for new tests: What about negative numbers? What about avg and an empty array? What about add or multiply with an empty array?
 //:
 //: Keep in mind that writing new tests may reveal ambiguity in the specification above--if that's the case, document the ambiguity, declare what you think *should* happen, and write the test to test for it.
-
-// ===== Your tests go here
-
+calc.multiply(lhs: -2, rhs: 2) == -4
+calc.count([1, 2, 3, 4, 5, 6, -7, 8]) == 8
 //: ---
 //: ## Test code block
 //: Do not modify the code in this section
